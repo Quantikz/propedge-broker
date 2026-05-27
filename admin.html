@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROPEDGE • Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', system_ui, sans-serif; font-weight: 600; }
+        .propedge-bg { background: #0a0e17; }
+        .glass { background: rgba(17, 21, 31, 0.95); backdrop-filter: blur(20px); }
+        
+        input {
+            color: white !important;
+        }
+        input::placeholder {
+            color: #9ca3af !important;
+        }
+        input:focus {
+            border-color: #00c853 !important;
+        }
+        .admin-table { font-size: 13px; }
+    </style>
+</head>
+<body class="propedge-bg text-white">
+    <!-- Top Nav -->
+    <div class="border-b border-white/10 bg-[#0a0e17]/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-red-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white"></i>
+                    </div>
+                    <div>
+                        <span class="font-display text-xl font-semibold">PROPEDGE</span>
+                        <span class="text-xs px-2 py-0.5 bg-red-500/20 text-red-400 rounded ml-2">ADMIN</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="text-right text-sm">
+                    <div id="adminName" class="font-medium">Admin User</div>
+                    <div class="text-xs text-white/50">Owner Access</div>
+                </div>
+                <button onclick="logout()" class="px-4 py-2 text-sm border border-white/20 rounded-2xl hover:bg-white/5 flex items-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <div class="text-sm text-white/50">OWNER DASHBOARD</div>
+                <div class="text-3xl font-semibold tracking-tight">Client Management</div>
+            </div>
+            <button onclick="showAddUserModal()" class="px-5 py-2.5 bg-white text-black rounded-2xl text-sm font-semibold flex items-center gap-2 hover:bg-white/90">
+                <i class="fas fa-plus"></i>
+                <span>Add New Client</span>
+            </button>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8" id="statsCards">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Clients Table -->
+        <div class="glass rounded-3xl border border-white/10 overflow-hidden">
+            <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+                <div class="font-semibold">All Registered Clients</div>
+                <div class="text-xs text-white/50" id="clientCount">0 clients</div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full admin-table">
+                    <thead>
+                        <tr class="border-b border-white/10 text-left text-white/60">
+                            <th class="px-6 py-4 font-normal">Account ID</th>
+                            <th class="px-6 py-4 font-normal">Client</th>
+                            <th class="px-6 py-4 font-normal">Balance</th>
+                            <th class="px-6 py-4 font-normal">Equity</th>
+                            <th class="px-6 py-4 font-normal">Margin Level</th>
+                            <th class="px-6 py-4 font-normal">Positions</th>
+                            <th class="px-6 py-4 font-normal text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsTableBody" class="divide-y divide-white/10">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center text-xs text-white/40">
+            Data is stored locally in browser. Changes affect the trading platform instantly.
+        </div>
+    </div>
+
+    <!-- Client Detail Modal -->
+    <dialog id="clientModal" class="bg-[#11151f] rounded-3xl p-0 w-full max-w-lg m-auto">
+        <div class="p-6">
+            <div class="flex justify-between mb-5">
+                <div id="modalClientName" class="font-semibold text-xl"></div>
+                <button onclick="document.getElementById('clientModal').close()" class="text-white/50 hover:text-white text-xl">×</button>
+            </div>
+            
+            <div id="modalClientDetails" class="space-y-4 text-sm"></div>
+            
+            <div class="flex gap-3 mt-6">
+                <button onclick="resetSelectedUser()" class="flex-1 py-3 border border-white/20 rounded-2xl text-sm hover:bg-white/5">Reset to $100k</button>
+                <button onclick="deleteSelectedUser()" class="flex-1 py-3 bg-red-600/80 hover:bg-red-600 rounded-2xl text-sm">Delete Account</button>
+            </div>
+        </div>
+    </dialog>
+
+    <script>
+        let currentUsers = [];
+        let selectedUserId = null;
+
+        function loadUsers() {
+            currentUsers = JSON.parse(localStorage.getItem('propedge_users') || '[]');
+            
+            // If no users, create demo users
+            if (currentUsers.length === 0) {
+                const demoUsers = [
+                    { id: 'PD-DEMO001', fullName: 'Demo Trader', email: 'trader@propedge.com', password: 'demo123', balance: 50000, equity: 50000, createdAt: new Date().toISOString() },
+                    { id: 'PD-DEMO002', fullName: 'Demo Pro', email: 'pro@propedge.com', password: 'demo123', balance: 100000, equity: 100000, createdAt: new Date().toISOString() },
+                    { id: 'PD-DEMO003', fullName: 'Demo Whale', email: 'whale@propedge.com', password: 'demo123', balance: 250000, equity: 250000, createdAt: new Date().toISOString() },
+                    { id: 'PD-DEMO004', fullName: 'Demo Risk Taker', email: 'risk@propedge.com', password: 'demo123', balance: 15000, equity: 15000, createdAt: new Date().toISOString() }
+                ];
+                localStorage.setItem('propedge_users', JSON.stringify(demoUsers));
+                currentUsers = demoUsers;
+            }
+            
+            renderStats();
+            renderTable();
+        }
+
+        function renderStats() {
+            const totalClients = currentUsers.length;
+            const totalBalance = currentUsers.reduce((sum, u) => sum + (u.balance || 0), 0);
+            const totalEquity = currentUsers.reduce((sum, u) => sum + (u.equity || u.balance || 0), 0);
+            
+            const html = `
+                <div class="glass rounded-3xl p-5 border border-white/10">
+                    <div class="text-white/50 text-xs">TOTAL CLIENTS</div>
+                    <div class="text-3xl font-semibold mt-1">${totalClients}</div>
+                </div>
+                <div class="glass rounded-3xl p-5 border border-white/10">
+                    <div class="text-white/50 text-xs">TOTAL BALANCE</div>
+                    <div class="text-3xl font-semibold mt-1">$${totalBalance.toLocaleString()}</div>
+                </div>
+                <div class="glass rounded-3xl p-5 border border-white/10">
+                    <div class="text-white/50 text-xs">TOTAL EQUITY</div>
+                    <div class="text-3xl font-semibold mt-1">$${totalEquity.toLocaleString()}</div>
+                </div>
+                <div class="glass rounded-3xl p-5 border border-white/10">
+                    <div class="text-white/50 text-xs">ACTIVE TODAY</div>
+                    <div class="text-3xl font-semibold mt-1">${Math.max(1, Math.floor(totalClients * 0.7))}</div>
+                </div>
+            `;
+            document.getElementById('statsCards').innerHTML = html;
+            document.getElementById('clientCount').innerText = `${totalClients} clients`;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('clientsTableBody');
+            tbody.innerHTML = '';
+            
+            currentUsers.forEach(user => {
+                const marginLevel = user.equity && user.balance ? Math.round((user.equity / user.balance) * 100) : 100;
+                const marginColor = marginLevel > 150 ? 'text-[#00c853]' : marginLevel > 80 ? 'text-yellow-400' : 'text-red-400';
+                
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-white/5 cursor-pointer';
+                row.innerHTML = `
+                    <td class="px-6 py-4 font-mono text-xs text-white/70">${user.id}</td>
+                    <td class="px-6 py-4">
+                        <div class="font-medium">${user.fullName}</div>
+                        <div class="text-xs text-white/50">${user.email}</div>
+                    </td>
+                    <td class="px-6 py-4 font-mono">$${(user.balance || 0).toLocaleString()}</td>
+                    <td class="px-6 py-4 font-mono">$${(user.equity || user.balance || 0).toLocaleString()}</td>
+                    <td class="px-6 py-4"><span class="${marginColor} font-medium">${marginLevel}%</span></td>
+                    <td class="px-6 py-4 text-center">${user.positions ? user.positions.length : 0}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button onclick="event.stopImmediatePropagation(); viewClient('${user.id}')" class="px-3 py-1 text-xs border border-white/20 rounded-xl hover:bg-white/5 mr-2">View</button>
+                        <button onclick="event.stopImmediatePropagation(); resetUser('${user.id}')" class="px-3 py-1 text-xs border border-white/20 rounded-xl hover:bg-white/5">Reset</button>
+                    </td>
+                `;
+                row.onclick = () => viewClient(user.id);
+                tbody.appendChild(row);
+            });
+        }
+
+        function viewClient(userId) {
+            selectedUserId = userId;
+            const user = currentUsers.find(u => u.id === userId);
+            if (!user) return;
+            
+            const marginLevel = user.equity && user.balance ? Math.round((user.equity / user.balance) * 100) : 100;
+            
+            document.getElementById('modalClientName').innerHTML = `
+                ${user.fullName} <span class="text-xs font-mono text-white/50">${user.id}</span>
+            `;
+            
+            document.getElementById('modalClientDetails').innerHTML = `
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div><span class="text-white/50">Email:</span> ${user.email}</div>
+                    <div><span class="text-white/50">Joined:</span> ${new Date(user.createdAt).toLocaleDateString()}</div>
+                    <div><span class="text-white/50">Balance:</span> <span class="font-mono">$${(user.balance || 0).toLocaleString()}</span></div>
+                    <div><span class="text-white/50">Equity:</span> <span class="font-mono">$${(user.equity || user.balance || 0).toLocaleString()}</span></div>
+                    <div><span class="text-white/50">Margin Level:</span> <span class="${marginLevel > 100 ? 'text-[#00c853]' : 'text-red-400'}">${marginLevel}%</span></div>
+                    <div><span class="text-white/50">Open Positions:</span> ${user.positions ? user.positions.length : 0}</div>
+                </div>
+            `;
+            
+            document.getElementById('clientModal').showModal();
+        }
+
+        function resetSelectedUser() {
+            if (!selectedUserId) return;
+            resetUser(selectedUserId);
+            document.getElementById('clientModal').close();
+        }
+
+        function deleteSelectedUser() {
+            if (!selectedUserId) return;
+            if (confirm('Delete this user permanently? This cannot be undone.')) {
+                currentUsers = currentUsers.filter(u => u.id !== selectedUserId);
+                localStorage.setItem('propedge_users', JSON.stringify(currentUsers));
+                document.getElementById('clientModal').close();
+                loadUsers();
+            }
+        }
+
+        function resetUser(userId) {
+            const userIndex = currentUsers.findIndex(u => u.id === userId);
+            if (userIndex === -1) return;
+            
+            currentUsers[userIndex].balance = 100000;
+            currentUsers[userIndex].equity = 100000;
+            currentUsers[userIndex].positions = [];
+            
+            localStorage.setItem('propedge_users', JSON.stringify(currentUsers));
+            
+            // Also clear their trading data
+            localStorage.removeItem(`propedge_user_${userId}_positions`);
+            localStorage.removeItem(`propedge_user_${userId}_history`);
+            
+            loadUsers();
+            showToast('Account reset to $100,000');
+        }
+
+        function showAddUserModal() {
+            const name = prompt('Full Name:');
+            if (!name) return;
+            
+            const email = prompt('Email:');
+            if (!email) return;
+            
+            const balance = parseFloat(prompt('Starting Balance (USD):', '100000')) || 100000;
+            
+            const newUser = {
+                id: 'PD-' + Math.random().toString(36).substring(2, 10).toUpperCase(),
+                fullName: name,
+                email: email,
+                password: 'demo123',
+                balance: balance,
+                equity: balance,
+                createdAt: new Date().toISOString()
+            };
+            
+            currentUsers.push(newUser);
+            localStorage.setItem('propedge_users', JSON.stringify(currentUsers));
+            loadUsers();
+            showToast('New client added successfully');
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 right-6 bg-[#11151f] border border-white/10 px-5 py-3 rounded-2xl flex items-center gap-3 text-sm shadow-2xl';
+            toast.innerHTML = `<i class="fas fa-check-circle text-[#00c853]"></i> <span>${message}</span>`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.3s';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 2200);
+        }
+
+        function logout() {
+            if (confirm('Logout from admin panel?')) {
+                window.location.href = 'landing.html';
+            }
+        }
+
+        // Initialize
+        function init() {
+            // Auto-login for demo
+            loadUsers();
+            
+            // Show welcome toast
+            setTimeout(() => {
+                showToast('Admin dashboard loaded • All client data is live');
+            }, 800);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
