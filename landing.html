@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROPEDGE • Professional Broker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(0, 200, 83, 0.14), transparent 16%),
+                radial-gradient(circle at bottom, rgba(56, 189, 248, 0.08), transparent 20%),
+                #04070d;
+        }
+        .font-display { font-family: 'Space Grotesk', system_ui, sans-serif; font-weight: 600; }
+        .propedge-bg { background: #0a0e17; }
+        .exness-green { color: #00c853; }
+        .exness-green-bg { background: #00c853; }
+        .glass { background: rgba(10, 12, 19, 0.78); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 20px 80px -38px rgba(0,0,0,0.96); }
+        .premium-panel {
+            background:
+                radial-gradient(circle at top, rgba(0,200,83,0.18), transparent 24%),
+                linear-gradient(180deg, rgba(11,14,21,0.94), rgba(7,9,14,0.9));
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 24px 90px -42px rgba(0,0,0,0.96);
+        }
+        input {
+            color: white !important;
+        }
+        input::placeholder {
+            color: #9ca3af !important;
+        }
+        input:focus {
+            border-color: #00c853 !important;
+        }
+    </style>
+</head>
+<body class="propedge-bg text-white">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 bg-[#04070d]/70 backdrop-blur-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-[#00c853] rounded-xl flex items-center justify-center">
+                    <i class="fas fa-chart-line text-black text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-display text-2xl font-semibold tracking-tighter">PROPEDGE</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm text-white/60">
+                <a href="#" class="hover:text-white">Markets</a>
+                <a href="#" class="hover:text-white">Platform</a>
+                <a href="#" class="hover:text-white">Pricing</a>
+                <a href="#" class="hover:text-white">Learn</a>
+            </div>
+            <div>
+                <button onclick="document.getElementById('registerModal').showModal()" 
+                        class="px-6 py-2.5 bg-white text-black font-semibold rounded-2xl text-sm hover:bg-white/90 transition-colors">
+                    Get Started Free
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="max-w-6xl mx-auto px-6 pt-14 pb-10">
+        <div class="premium-panel rounded-[30px] p-6 md:p-8">
+            <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
+                <div class="text-left">
+                    <div class="inline-flex items-center gap-2 bg-[#00c853]/10 border border-[#00c853]/20 px-3 py-1.5 rounded-full text-[10px] uppercase tracking-[0.28em] text-[#8dffb5] mb-5">
+                        <span class="w-2 h-2 rounded-full bg-[#00c853] animate-pulse"></span>
+                        LIVE FROM BINANCE • REAL-TIME DATA
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-semibold tracking-[-0.04em] leading-none mb-5">
+                        Trade like a professional.
+                    </h1>
+                    <p class="text-base md:text-lg text-white/70 max-w-xl mb-8">
+                        Real-time Binance prices, synthetic indices, professional margin controls, and a broker-grade interface designed for speed and trust.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button onclick="document.getElementById('registerModal').showModal()" 
+                                class="px-6 py-3 bg-[#00c853] text-black font-semibold rounded-2xl text-sm flex items-center justify-center gap-2 hover:bg-[#00e060]">
+                            <span>Start Trading Free</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button onclick="window.open('trading.html', '_blank')" 
+                                class="px-6 py-3 border border-white/15 hover:bg-white/5 font-semibold rounded-2xl text-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-play"></i>
+                            <span>Watch Demo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid gap-3">
+                    <div class="glass rounded-3xl p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <div class="text-xs uppercase tracking-[0.24em] text-white/50">Market Pulse</div>
+                                <div class="text-2xl font-semibold mt-1">BTC / ETH / SOL</div>
+                            </div>
+                            <div class="px-2.5 py-1 rounded-full bg-[#00c853]/15 text-[#8dffb5] text-[10px] font-semibold">LIVE</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs text-white/60">
+                            <div class="glass rounded-2xl p-2">BTCUSDT</div>
+                            <div class="glass rounded-2xl p-2">ETHUSDT</div>
+                            <div class="glass rounded-2xl p-2">SOLUSDT</div>
+                        </div>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <div class="glass rounded-3xl p-4">
+                            <div class="text-white/50 text-xs uppercase tracking-[0.24em]">Execution</div>
+                            <div class="text-3xl font-semibold mt-2">1:1000</div>
+                            <div class="text-white/60 mt-2 text-sm">Scalable margin range designed for fast-moving markets.</div>
+                        </div>
+                        <div class="glass rounded-3xl p-4">
+                            <div class="text-white/50 text-xs uppercase tracking-[0.24em]">Protection</div>
+                            <div class="text-3xl font-semibold mt-2">100%</div>
+                            <div class="text-white/60 mt-2 text-sm">Risk-aware controls, stop-out safeguards, and clean balances.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Bar -->
+    <div class="border-y border-white/10 py-4">
+        <div class="max-w-5xl mx-auto px-6 flex flex-wrap justify-center items-center gap-x-10 gap-y-4 text-white/40 text-sm">
+            <div class="uppercase tracking-[0.24em] text-[10px]">Powered by</div>
+            <div class="font-semibold text-white/60">BINANCE</div>
+            <div class="font-semibold text-white/60">LIGHTWEIGHT CHARTS</div>
+            <div class="font-semibold text-white/60">LOCAL STORAGE</div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-6">
+        <div class="premium-panel rounded-3xl p-7">
+            <div class="w-12 h-12 bg-[#00c853]/10 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-bolt text-[#00c853] text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-xl mb-3">Real-time Binance Data</h3>
+            <p class="text-white/70">Live prices, streaming market movement, and crypto execution UX without sacrificing performance.</p>
+        </div>
+        <div class="premium-panel rounded-3xl p-7">
+            <div class="w-12 h-12 bg-[#00c853]/10 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-chart-area text-[#00c853] text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-xl mb-3">AFEC30 Synthetic Index</h3>
+            <p class="text-white/70">High-volatility synthetic index behavior with clean market framing and risk-aware analytics.</p>
+        </div>
+        <div class="premium-panel rounded-3xl p-7">
+            <div class="w-12 h-12 bg-[#00c853]/10 rounded-2xl flex items-center justify-center mb-6">
+                <i class="fas fa-shield-alt text-[#00c853] text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-xl mb-3">Professional Margin System</h3>
+            <p class="text-white/70">Leverage, margin monitoring, balance visibility, and protected workflows that feel institutional.</p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <dialog id="registerModal" class="bg-[#11151f] rounded-3xl p-0 w-full max-w-md m-auto">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <div class="font-semibold text-2xl">Create your account</div>
+                    <div class="text-white/60 text-sm">Start trading in under 30 seconds</div>
+                </div>
+                <button onclick="document.getElementById('registerModal').close()" class="text-white/50 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs text-white/60 block mb-1.5">FULL NAME</label>
+                        <input type="text" id="fullName" value="Alex Rivera" class="w-full bg-black border border-white/20 rounded-2xl px-4 py-3 text-sm" required>
+                    </div>
+                    <div>
+                        <label class="text-xs text-white/60 block mb-1.5">EMAIL ADDRESS</label>
+                        <input type="email" id="email" value="alex.rivera@demo.com" class="w-full bg-black border border-white/20 rounded-2xl px-4 py-3 text-sm" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-white/60 block mb-1.5">PASSWORD</label>
+                            <input type="password" id="password" value="demo123" class="w-full bg-black border border-white/20 rounded-2xl px-4 py-3 text-sm" required>
+                        </div>
+                        <div>
+                            <label class="text-xs text-white/60 block mb-1.5">CONFIRM</label>
+                            <input type="password" id="confirmPassword" value="demo123" class="w-full bg-black border border-white/20 rounded-2xl px-4 py-3 text-sm" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" 
+                        class="mt-6 w-full py-4 bg-[#00c853] text-black font-semibold rounded-2xl flex items-center justify-center gap-3 hover:bg-[#00e060]">
+                    <span>CREATE ACCOUNT &amp; START TRADING</span>
+                </button>
+                
+                <div class="text-center mt-4 text-xs text-white/50">
+                    By creating an account you agree to our Terms &amp; Privacy Policy
+                </div>
+            </form>
+        </div>
+    </dialog>
+
+    <script>
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            const isError = type === 'error';
+            toast.className = `fixed bottom-5 right-5 z-[9999] max-w-sm rounded-2xl border px-4 py-3 text-sm shadow-2xl backdrop-blur ${isError ? 'border-red-500/40 bg-[#090c13]/90 text-red-100' : 'border-[#00c853]/30 bg-[#090c13]/90 text-white'}`;
+            toast.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full ${isError ? 'bg-red-500/20 text-red-300' : 'bg-[#00c853]/20 text-[#8dffb5]'}">
+                        <i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold">${isError ? 'Action required' : 'Account ready'}</div>
+                        <div class="text-white/70 text-xs mt-1">${message}</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(12px)';
+                setTimeout(() => toast.remove(), 250);
+            }, 3200);
+        }
+
+        window.alert = function(message) {
+            showToast(message, /already exists|invalid|failed|error/i.test(message) ? 'error' : 'success');
+        };
+
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Create unique account ID
+            const accountId = 'PD-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+            
+            // Save user to localStorage (multi-user system)
+            let users = JSON.parse(localStorage.getItem('propedge_users') || '[]');
+            
+            // Check if email already exists
+            if (users.find(u => u.email === email)) {
+                alert('An account with this email already exists. Please login instead.');
+                return;
+            }
+            
+            const newUser = {
+                id: accountId,
+                fullName: fullName,
+                email: email,
+                password: password,
+                balance: 100000,
+                equity: 100000,
+                createdAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('propedge_users', JSON.stringify(users));
+            
+            // Set current user
+            localStorage.setItem('propedge_current_user', JSON.stringify(newUser));
+            
+            // Close modal and redirect to trading platform
+            document.getElementById('registerModal').close();
+            
+            setTimeout(() => {
+                window.open('trading.html', '_blank');
+            }, 300);
+        }
+        
+        // Demo quick login buttons (for testing)
+        console.log('%c[Propedge] Landing page loaded. Use demo accounts from README.', 'color:#00c853');
+    </script>
+</body>
+</html>

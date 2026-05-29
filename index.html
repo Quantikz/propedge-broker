@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROPEDGE • Professional Broker System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; background:
+            radial-gradient(circle at top, rgba(0, 200, 83, 0.12), transparent 18%),
+            radial-gradient(circle at bottom, rgba(56, 189, 248, 0.08), transparent 22%),
+            #04070d;
+        }
+        .font-display { font-family: 'Space Grotesk', system_ui, sans-serif; font-weight: 600; }
+        .propedge-bg { background: #0a0e17; }
+        .glass { background: rgba(10, 12, 19, 0.78); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 20px 80px -38px rgba(0,0,0,0.95); }
+        .premium-panel { background:
+            radial-gradient(circle at top, rgba(0,200,83,0.18), transparent 24%),
+            linear-gradient(180deg, rgba(11,14,21,0.92), rgba(7,9,14,0.9));
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 24px 90px -42px rgba(0,0,0,0.96);
+        }
+    </style>
+</head>
+<body class="propedge-bg text-white">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-[#00c853] rounded-xl flex items-center justify-center">
+                    <i class="fas fa-chart-line text-black text-xl"></i>
+                </div>
+                <span class="font-display text-2xl font-semibold tracking-tighter">PROPEDGE</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-4 text-sm">
+                <a href="landing.html" class="px-4 py-2 hover:text-[#00c853]">Register</a>
+                <a href="trading.html" class="px-4 py-2 hover:text-[#00c853]">Trade</a>
+                <a href="admin.html" class="px-4 py-2 hover:text-[#00c853]">Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="max-w-6xl mx-auto px-6 pt-14 pb-12">
+        <div class="premium-panel rounded-[30px] p-6 md:p-8">
+            <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-center">
+                <div class="text-left">
+                    <div class="inline-flex items-center gap-2 bg-[#00c853]/10 border border-[#00c853]/20 px-3 py-1.5 rounded-full text-xs uppercase tracking-[0.28em] text-[#8dffb5] mb-6">
+                        <span class="w-2 h-2 rounded-full bg-[#00c853] animate-pulse"></span>
+                        COMPLETE BROKER PLATFORM
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-semibold tracking-[-0.04em] leading-none mb-5">
+                        Professional broker tooling built for modern trading.
+                    </h1>
+                    <p class="text-base md:text-lg text-white/70 max-w-2xl mb-8">
+                        Live Binance execution, synthetic indices, multi-user local storage, admin controls, and a polished experience designed for high-trust brokerage demos.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="landing.html" class="px-6 py-3 bg-[#00c853] text-black font-semibold rounded-2xl text-sm flex items-center justify-center gap-2 hover:bg-[#00e060]">
+                            <span>Launch Registration</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="trading.html" class="px-6 py-3 border border-white/15 hover:bg-white/5 font-semibold rounded-2xl text-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Open Trading Terminal</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-2">
+                    <div class="glass rounded-3xl p-5">
+                        <div class="text-white/50 text-xs uppercase tracking-[0.24em]">Market Data</div>
+                        <div class="text-3xl font-semibold mt-3">24/7</div>
+                        <div class="text-white/60 mt-2 text-sm">Binance live feeds, real-time refreshes, and active market motion.</div>
+                    </div>
+                    <div class="glass rounded-3xl p-5">
+                        <div class="text-white/50 text-xs uppercase tracking-[0.24em]">Account System</div>
+                        <div class="text-3xl font-semibold mt-3">Multi-user</div>
+                        <div class="text-white/60 mt-2 text-sm">Per-user balances, positions, history, and admin syncs are built in.</div>
+                    </div>
+                    <div class="glass rounded-3xl p-5 sm:col-span-2">
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <div class="text-white/50 text-xs uppercase tracking-[0.24em]">Execution Deck</div>
+                                <div class="text-2xl font-semibold mt-1">Premium terminal workspace</div>
+                            </div>
+                            <div class="px-2.5 py-1 rounded-full bg-[#00c853]/15 text-[#8dffb5] text-[10px] font-semibold">Live-ready</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs text-white/60">
+                            <div class="glass rounded-2xl p-2">BTC / ETH / SOL</div>
+                            <div class="glass rounded-2xl p-2">AFEC30 index</div>
+                            <div class="glass rounded-2xl p-2">Deposit + withdraw flows</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three Main Parts -->
+    <div class="max-w-6xl mx-auto px-6 pb-20">
+        <div class="flex items-end justify-between gap-3 mb-6">
+            <div>
+                <div class="text-sm uppercase tracking-[0.24em] text-white/50 mb-2">COMPLETE SYSTEM</div>
+                <h2 class="text-3xl font-semibold">Everything you need, curated for scale</h2>
+            </div>
+            <div class="hidden md:block text-xs text-white/50">Designer-forward layout • responsive • production-grade demo</div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            
+            <!-- Landing -->
+            <div class="premium-panel rounded-3xl p-7 group transition-transform duration-200 hover:-translate-y-1">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-[#00c853]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#00c853]/20 transition-colors">
+                        <i class="fas fa-user-plus text-[#00c853] text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl">Landing &amp; Registration</div>
+                        <div class="text-xs text-white/50">Public Website</div>
+                    </div>
+                </div>
+                <p class="text-white/70 mb-6">Beautiful landing page with instant registration. New users get isolated starter accounts with polished onboarding UI.</p>
+                <a href="landing.html" class="inline-flex items-center gap-2 text-[#00c853] hover:text-[#00e060]">
+                    Open Landing Page <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Trading -->
+            <div class="premium-panel rounded-3xl p-7 group transition-transform duration-200 hover:-translate-y-1">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-[#00c853]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#00c853]/20 transition-colors">
+                        <i class="fas fa-chart-line text-[#00c853] text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl">Trading Platform</div>
+                        <div class="text-xs text-white/50">Client Dashboard</div>
+                    </div>
+                </div>
+                <p class="text-white/70 mb-6">Full trading experience with live Binance prices, real chart feeds, AFEC30 volatility, and a refined terminal flow.</p>
+                <a href="trading.html" class="inline-flex items-center gap-2 text-[#00c853] hover:text-[#00e060]">
+                    Open Trading Platform <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Admin -->
+            <div class="premium-panel rounded-3xl p-7 group transition-transform duration-200 hover:-translate-y-1">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center group-hover:bg-red-500/20 transition-colors">
+                        <i class="fas fa-shield-alt text-red-400 text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl">Admin Dashboard</div>
+                        <div class="text-xs text-white/50">Owner Panel</div>
+                    </div>
+                </div>
+                <p class="text-white/70 mb-6">Manage all users, reset balances, inspect equity, and keep the platform synced with executive-level reporting views.</p>
+                <a href="admin.html" class="inline-flex items-center gap-2 text-red-400 hover:text-red-500">
+                    Open Admin Panel <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="border-t border-white/10 py-8">
+        <div class="max-w-6xl mx-auto px-6 text-center text-white/50 text-sm">
+            <p>Propedge Broker System • All files are static HTML • Works offline • Mobile responsive</p>
+            <p class="mt-2">Made for Dear Trader • Ready to deploy on GitHub Pages</p>
+        </div>
+    </div>
+
+    <script>
+        console.log('%c[Propedge] Homepage loaded. All systems ready.', 'color:#00c853');
+    </script>
+</body>
+</html>
